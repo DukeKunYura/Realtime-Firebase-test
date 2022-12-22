@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addStoreText } from '../redux/masterSlice';
-import sendRequest from '../functions/sendRequest';
+import { DB } from '../firebase/db';
 
 export default function Adder() {
 
@@ -10,15 +10,8 @@ export default function Adder() {
     const [text, setText] = useState('');
 
     const addPost = () => {
-        const adder = new Promise((resolve, reject) => {
-            const newPost = { "content": text };
-            const data = sendRequest(
-                'POST',
-                "https://testone-8ac4d-default-rtdb.europe-west1.firebasedatabase.app/posts.json",
-                newPost
-            );
-            resolve(data)
-        })
+        const adder = DB.addPost(text);
+
         adder.then(data => console.log({ id: data.name, content: text }));
         adder.then(data => { dispatch(addStoreText({ id: data.name, content: text })) });
         adder.then(setText(""))
@@ -27,7 +20,6 @@ export default function Adder() {
     const enterDown = (event) => {
         if (event.keyCode === 13) {
             event.preventDefault();
-            console.log(text);
             addPost();
         }
     };

@@ -4,6 +4,7 @@ import { setStorePosts } from '../redux/masterSlice';
 import { useSelector } from 'react-redux';
 import sendRequest from '../functions/sendRequest';
 import Post from './Post';
+import { DB } from '../firebase/db';
 
 export default function PostsList() {
 
@@ -11,52 +12,24 @@ export default function PostsList() {
 
     const dispatch = useDispatch();
 
-    const loadPosts = () => {
-        const loader = new Promise(function (resolve, reject) {
-            const data = sendRequest(
-                'GET',
-                "https://testone-8ac4d-default-rtdb.europe-west1.firebasedatabase.app/posts.json"
-            )
-            resolve(data)
-        })
-        loader.then(data => { dispatch(setStorePosts(data)) })
+    const loader = () => {
+        const loaderDB = DB.loadPosts();
 
+        loaderDB.then(data => { dispatch(setStorePosts(data)) });
+        loaderDB.then(data => console.log(data));
     };
 
-    const deletePost = (id) => {
-        const deleter = new Promise(function (resolve, reject) {
-            sendRequest(
-                'DELETE',
-                `https://testone-8ac4d-default-rtdb.europe-west1.firebasedatabase.app/posts/${id}.json`
-            )
-            resolve()
-        })
-        deleter.then(setTimeout(loadPosts, 1000))
-
+    const handleDeletePost = (id) => {
+        const deleter = DB.deletePost(id);
+        deleter.then(setTimeout(() => { loader() }, 1000))
     };
 
-    useEffect(() => { loadPosts() }, [state.text]);
-
-    useEffect(() => {
-
-        const loader = new Promise(function (resolve, reject) {
-            const data = sendRequest(
-                'GET',
-                "https://testone-8ac4d-default-rtdb.europe-west1.firebasedatabase.app/posts.json"
-            )
-            resolve(data)
-        })
-        loader.then(data => { dispatch(setStorePosts(data)) })
-        loader.then(data => console.log(data))
-
-
-
-    }, []);
+    useEffect(() => { loader() }, []);
 
     return (
         <>
             {state.posts[0] && state.posts.map(post =>
-                <Post key={post.id} content={post.content} deletePost={deletePost} id={post.id} />)}
+                <Post key={post.id} content={post.content} handleDeletePost={handleDeletePost} id={post.id} />)}
         </>
 
     )
