@@ -3,7 +3,7 @@
  */
 export default async function sendRequest(method, url, body = null) {
 
-    if (method === 'POST') { body = JSON.stringify(body) };
+    if (method === 'POST' || method === 'PATCH') { body = JSON.stringify(body) };
     const response = await fetch(url, {
         method: method,
         body: body,

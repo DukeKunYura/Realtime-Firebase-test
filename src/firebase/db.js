@@ -32,4 +32,16 @@ export class DB {
             resolve()
         })
     };
+
+    static updatePost = (id, text) => {
+        return new Promise(function (resolve, reject) {
+            const patchedPost = { "content": text }
+            sendRequest(
+                'PATCH',
+                `https://testone-8ac4d-default-rtdb.europe-west1.firebasedatabase.app/posts/${id}.json`,
+                patchedPost
+            )
+            resolve()
+        })
+    };
 }

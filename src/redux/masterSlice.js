@@ -18,7 +18,7 @@ export const masterSlice = createSlice({
             console.log(action.payload)
         },
         setStorePosts: (state, action) => {
-            state.posts = action.payload
+            state.posts = action.payload.reverse()
         },
         addStoreText: (state, action) => {
             state.posts = [action.payload, ...state.posts];

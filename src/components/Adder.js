@@ -25,9 +25,11 @@ export default function Adder() {
     };
 
     return (
-        <form>
+        <form className='Form'>
             <input
-                placeholder="Поиск"
+                className='Input'
+                placeholder="Введите текст и нажмите ENTER"
+                maxLength={20}
                 value={text}
                 onChange={(e) => { setText(e.target.value) }}
                 onKeyDown={(e) => enterDown(e)} />
