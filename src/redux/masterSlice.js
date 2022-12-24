@@ -2,10 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     posts: [],
-    isActiveAdderWindow: false,
-    categories: ["антибиотики", "анальгетики", "витамины", "спазмальгетики", "hvhjg444jh", "jfhj44kjkl",
-        "vgvjhg2kjh", "ghg99jh", "hhj787kjkj", "g4hgh", "hvhjgjh", "jfhjkjkl", "vgvjhgkfrjh", "ghgjggh",
-        "hhjkjkj", "ghgh", "ytjhgj"],
+    isActiveEditing: false,
     medications: []
 };
 
@@ -33,11 +30,8 @@ export const masterSlice = createSlice({
         deleteMedication: (state, action) => {
             state.medications = state.medications.filter(item => item.id !== action.payload)
         },
-        setIsActiveAdderWindow: (state, action) => {
-            state.isActiveAdderWindow = action.payload
-        },
-        addCategory: (state, action) => {
-            state.categories = [...state.categories, action.payload]
+        setIsActiveEditing: (state, action) => {
+            state.isActiveEditing = action.payload
         }
     }
 });
@@ -48,8 +42,7 @@ export const {
     setStorePosts,
     addStoreText,
     editMedication,
-    setIsActiveAdderWindow,
-    addCategory,
+    setIsActiveEditing,
     deleteMedication } = masterSlice.actions;
 
 export default masterSlice.reducer

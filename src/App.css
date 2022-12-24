@@ -12,6 +12,7 @@
     margin-top: 100px;
     height: 100px;
     width: 50%;
+    min-width: 400px;
     justify-content: center;
     align-items: center;
     background-color: rgb(255, 226, 131);
@@ -25,6 +26,7 @@
     margin-top: 100px;
     height: 100px;
     width: 50%;
+    min-width: 400px;
     justify-content: center;
     align-items: center;
     background-color: rgb(253, 218, 103);
@@ -38,10 +40,16 @@
     width: 80%;
     font-size: 20px;
     text-align: center;
-    outline-color: rgb(247, 158, 41);
     border-radius: 10px;
     border-color: rgb(255, 226, 131);
     background-color: rgb(255, 249, 213);
+}
+
+.Input:active,
+:hover,
+:focus {
+    outline: 0;
+    outline-offset: 0;
 }
 
 .Post {
@@ -50,6 +58,7 @@
     margin: 20px;
     height: 100px;
     width: 50%;
+    min-width: 400px;
     justify-content: space-between;
     align-items: center;
     background-color: rgb(243, 243, 243);
@@ -63,12 +72,27 @@
     margin: 20px;
     height: 100px;
     width: 50%;
+    min-width: 400px;
     justify-content: space-between;
     align-items: center;
     background-color: rgb(224, 224, 224);
     border-radius: 20px;
     box-shadow: rgb(219, 219, 219) 3px 3px 3px;
 
+}
+
+.PostEditing {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    height: 100px;
+    width: 50%;
+    min-width: 400px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(255, 226, 131);
+    border-radius: 20px;
+    box-shadow: rgb(219, 219, 219) 3px 3px 3px;
 }
 
 .PostText {
@@ -82,5 +106,5 @@
 }
 
 .Button {
-    margin: 20px;
+    margin: 10px;
 }

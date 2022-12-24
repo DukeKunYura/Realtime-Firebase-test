@@ -18,7 +18,7 @@ export default function Adder() {
     };
 
     const enterDown = (event) => {
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13 && text !== "") {
             event.preventDefault();
             addPost();
         }
@@ -29,7 +29,7 @@ export default function Adder() {
             <input
                 className='Input'
                 placeholder="Введите текст и нажмите ENTER"
-                maxLength={20}
+                maxLength={10}
                 value={text}
                 onChange={(e) => { setText(e.target.value) }}
                 onKeyDown={(e) => enterDown(e)} />
