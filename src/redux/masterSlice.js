@@ -27,14 +27,6 @@ export const masterSlice = createSlice({
     }
 });
 
-
-export const {
-    setStorePosts,
-    addStorePost,
-    editMedication,
-    setIdEditingPost,
-    setIsActiveEditing,
-    setIsActiveAdder,
-    editPost } = masterSlice.actions;
+export const { setStorePosts, addStorePost, setIdEditingPost, editPost } = masterSlice.actions;
 
 export default masterSlice.reducer

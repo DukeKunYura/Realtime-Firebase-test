@@ -1,5 +1,9 @@
 import sendRequest from '../functions/sendRequest';
 
+
+/**
+ * Класс с набором методов для взаимодествия с облачной БД Firebase
+ */
 export class DB {
     static addPost(text) {
         return new Promise((resolve, reject) => {

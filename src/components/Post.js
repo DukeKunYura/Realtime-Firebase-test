@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIdEditingPost } from '../redux/masterSlice';
 
+/**
+ * Компонент рендерит либо пост с контентом либо поле для его реадкирования.
+ */
 export default function Post({ content, handleDeletePost, handleEditPost, id }) {
 
     const state = useSelector((state) => state.master);

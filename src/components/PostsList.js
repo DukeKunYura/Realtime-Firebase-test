@@ -5,6 +5,10 @@ import { useSelector } from 'react-redux';
 import Post from './Post';
 import { DB } from '../firebase/db';
 
+/**
+ * Компонент инициирует загрузку и рендерит список элементов.
+ * Отвечает за удаление и редактирование элементов.
+ */
 export default function PostsList() {
 
     const state = useSelector((state) => state.master);

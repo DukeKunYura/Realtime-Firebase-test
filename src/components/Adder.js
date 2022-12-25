@@ -4,7 +4,7 @@ import { addStorePost, setIdEditingPost } from '../redux/masterSlice';
 import { DB } from '../firebase/db';
 
 /**
- * компонент отвечает за добавление поста. Сохраняет текст из инпута в облачную БД firebase и на фронт. 
+ * Компонент отвечает за добавление поста. Сохраняет текст из инпута в облачную БД firebase и на фронт. 
  */
 export default function Adder() {
 
