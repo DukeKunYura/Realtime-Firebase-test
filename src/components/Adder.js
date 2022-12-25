@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addStoreText } from '../redux/masterSlice';
+import { addStorePost, setIdEditingPost } from '../redux/masterSlice';
 import { DB } from '../firebase/db';
 
+/**
+ * компонент отвечает за добавление поста. Сохраняет текст из инпута в облачную БД firebase и на фронт. 
+ */
 export default function Adder() {
 
     const dispatch = useDispatch();
@@ -13,7 +16,7 @@ export default function Adder() {
         const adder = DB.addPost(text);
 
         adder.then(data => console.log({ id: data.name, content: text }));
-        adder.then(data => { dispatch(addStoreText({ id: data.name, content: text })) });
+        adder.then(data => { dispatch(addStorePost({ id: data.name, content: text })) });
         adder.then(setText(""))
     };
 
@@ -32,7 +35,8 @@ export default function Adder() {
                 maxLength={10}
                 value={text}
                 onChange={(e) => { setText(e.target.value) }}
-                onKeyDown={(e) => enterDown(e)} />
+                onKeyDown={(e) => enterDown(e)}
+                onClick={() => { dispatch(setIdEditingPost("")) }} />
         </form>
     )
 }

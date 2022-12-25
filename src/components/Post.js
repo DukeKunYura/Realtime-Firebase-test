@@ -1,49 +1,44 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsActiveEditing } from '../redux/masterSlice';
+import { setIdEditingPost } from '../redux/masterSlice';
 
-export default function Post({ content, handleDeletePost, EditPost, id }) {
+export default function Post({ content, handleDeletePost, handleEditPost, id }) {
 
     const state = useSelector((state) => state.master);
 
     const dispatch = useDispatch();
 
-    const [isEditing, setIsEditing] = useState(false);
+    const [text, setText] = useState(content);
 
-    const handleEditPost = (id) => {
-        if (!isEditing && !state.isActiveEditing) {
-            setIsEditing(true);
-            dispatch(setIsActiveEditing(true));
-        } else {
-            setIsEditing(false)
-
-        }
+    const handleChoicePost = (id) => {
+        dispatch(setIdEditingPost(id))
     };
 
-    const handleSavePost = (id) => {
-        setIsEditing(false);
-        dispatch(setIsActiveEditing(false));
+    const handleSavePost = (id, text) => {
+        handleEditPost(id, text);
+        dispatch(setIdEditingPost(""));
     };
-
-
-
 
     return (
         <>
-            {isEditing &&
+            {state.idEditingPost === id ?
                 <div className='PostEditing'>
-                    <div className='PostText'>{content}</div>
+                    <input
+                        className='InputEditing'
+                        maxLength={10}
+                        value={text}
+                        onChange={(e) => { setText(e.target.value) }} />
                     <div className='Buttons'>
-                        <div className='Button' onClick={() => { handleSavePost(id) }}>SAVE</div>
+                        <div className='Button' onClick={() => { handleSavePost(id, text) }}>SAVE</div>
                         <div className='Button' onClick={() => { handleDeletePost(id) }}>DELETE</div>
                     </div>
 
-                </div>}
-            {!isEditing &&
+                </div>
+                :
                 <div className='Post'>
                     <div className='PostText'>{content}</div>
                     <div className='Buttons'>
-                        <div className='Button' onClick={() => { handleEditPost(id) }}>EDIT</div>
+                        <div className='Button' onClick={() => { handleChoicePost(id) }}>EDIT</div>
                         <div className='Button' onClick={() => { handleDeletePost(id) }}>DELETE</div>
                     </div>
 

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { setStorePosts } from '../redux/masterSlice';
+import { setStorePosts, editPost } from '../redux/masterSlice';
 import { useSelector } from 'react-redux';
 import Post from './Post';
 import { DB } from '../firebase/db';
@@ -11,23 +11,24 @@ export default function PostsList() {
 
     const dispatch = useDispatch();
 
-    const loader = () => {
+    const loader = useCallback(() => {
         const loaderDB = DB.loadPosts();
 
         loaderDB.then(data => { dispatch(setStorePosts(data)) });
         loaderDB.then(data => console.log(data));
-    };
+    }, [dispatch]);
 
     const handleDeletePost = (id) => {
-        const deleter = DB.deletePost(id);
-        deleter.then(setTimeout(() => { loader() }, 1000))
+        const deleteDB = DB.deletePost(id);
+        deleteDB.then(setTimeout(() => { loader() }, 1000))
     };
 
-    const EditPost = (id) => {
-        const editor = DB.updatePost(id, "edited")
+    const handleEditPost = (id, text) => {
+        const editorDB = DB.updatePost(id, text);
+        editorDB.then(dispatch(editPost({ id, content: text })));
     };
 
-    useEffect(() => { loader() }, []);
+    useEffect(() => { loader() }, [loader]);
 
     return (
         <>
@@ -36,7 +37,7 @@ export default function PostsList() {
                     key={post.id}
                     content={post.content}
                     handleDeletePost={handleDeletePost}
-                    EditPost={EditPost}
+                    handleEditPost={handleEditPost}
                     id={post.id} />)}
         </>
 
